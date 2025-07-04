@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrueKanban</title>
+  <!-- Tailwind CSS for modern styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+  <!-- Header Navigation -->
+  <header class="bg-[#1ABC9C] text-white">
+    <div class="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">TrueKanban</h1>
+      <nav class="space-x-4">
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-[#ECF0F1] py-16 px-4 text-center">
+    <h2 class="text-4xl font-bold mb-4">Optimise Flow. Minimise Waste. Deliver Value.</h2>
+    <p class="text-lg max-w-2xl mx-auto">TrueKanban is a practical approach to improving how teams deliver by using proven principles from ProKanban and the Kanban Guide.</p>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="max-w-4xl mx-auto px-4 py-16">
+    <h3 class="text-3xl font-semibold text-[#34495E] mb-6">About TrueKanban</h3>
+    <p class="mb-4">TrueKanban is grounded in the official <a href="https://www.prokanban.org" class="text-[#1ABC9C] underline">Kanban Guide</a>, focusing on:</p>
+    <ul class="list-disc list-inside space-y-2 text-lg">
+      <li><strong>Visualising Workflows:</strong> make work visible to enable better decision-making</li>
+      <li><strong>Actively Managing Work:</strong> avoid unnecessary delays and improve team focus</li>
+      <li><strong>Improving Continuously:</strong> use flow metrics and customer feedback to adapt and evolve</li>
+    </ul>
+  </section>
+
+  <!-- Contact Form -->
+  <section id="contact" class="bg-[#ECF0F1] py-16 px-4">
+    <div class="max-w-2xl mx-auto">
+      <h3 class="text-3xl font-semibold text-[#34495E] mb-6">Contact Us</h3>
+      <form class="space-y-4">
+        <input type="text" placeholder="Your Name" class="w-full border border-gray-300 rounded p-3" required />
+        <input type="email" placeholder="Your Email" class="w-full border border-gray-300 rounded p-3" required />
+        <textarea placeholder="Your Message" class="w-full border border-gray-300 rounded p-3 h-32" required></textarea>
+        <button type="submit" class="bg-[#1ABC9C] text-white py-3 px-6 rounded hover:bg-[#159C89]">Send</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#34495E] text-white text-center py-4 mt-10">
+    &copy; 2025 TrueKanban. All rights reserved.
+  </footer>
+
+</body>
+</html>
