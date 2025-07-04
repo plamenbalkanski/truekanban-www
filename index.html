@@ -1,15 +1,15 @@
+<!-- Save this as index.html and replace the current one in your GitHub Pages repo -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrueKanban</title>
-  <!-- Tailwind CSS for modern styling -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white text-gray-800 font-sans">
 
-  <!-- Header Navigation -->
+  <!-- Header -->
   <header class="bg-[#1ABC9C] text-white">
     <div class="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
       <h1 class="text-2xl font-bold">TrueKanban</h1>
@@ -20,20 +20,33 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="bg-[#ECF0F1] py-16 px-4 text-center">
     <h2 class="text-4xl font-bold mb-4">Optimise Flow. Minimise Waste. Deliver Value.</h2>
     <p class="text-lg max-w-2xl mx-auto">TrueKanban is a practical approach to improving how teams deliver by using proven principles from ProKanban and the Kanban Guide.</p>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="max-w-4xl mx-auto px-4 py-16">
+  <section id="about" class="max-w-5xl mx-auto px-4 py-16">
     <h3 class="text-3xl font-semibold text-[#34495E] mb-6">About TrueKanban</h3>
-    <p class="mb-4">TrueKanban is grounded in the official <a href="https://www.prokanban.org" class="text-[#1ABC9C] underline">Kanban Guide</a>, focusing on:</p>
-    <ul class="list-disc list-inside space-y-2 text-lg">
-      <li><strong>Visualising Workflows:</strong> make work visible to enable better decision-making</li>
-      <li><strong>Actively Managing Work:</strong> avoid unnecessary delays and improve team focus</li>
-      <li><strong>Improving Continuously:</strong> use flow metrics and customer feedback to adapt and evolve</li>
+
+    <!-- Screenshot Image -->
+    <img src="truekanban.png" alt="TrueKanban Board Example" class="rounded shadow-md mb-8" />
+
+    <p class="mb-6">TrueKanban combines the simplicity of visual work management with powerful flow optimisation techniques. Below are some of the key features that support real Kanban delivery:</p>
+
+    <!-- Feature List -->
+    <ul class="list-disc list-inside space-y-3 text-lg">
+      <li><strong>Work Item Age Tracking:</strong> Visual, real-time age of in-progress items</li>
+      <li><strong>Service Level Expectation (SLE) Visualisation:</strong> Show SLE boundaries directly on the board and in charts</li>
+      <li><strong>Pull-Based WIP Control:</strong> Enforced WIP limits with pull signals when capacity is available</li>
+      <li><strong>Flow Metrics Dashboard:</strong> Display the 4 core metrics: WIP, Cycle Time, Throughput, Work Item Age</li>
+      <li><strong>Customisable Definition of Workflow (DoW):</strong> Define start/finish points, stages, policies, and flow rules</li>
+      <li><strong>Blocked Item Visualisation:</strong> Visibly mark blocked items with cause and duration</li>
+      <li><strong>Forecasting Using Historical Data:</strong> Generate probabilistic forecasts based on past cycle times</li>
+      <li><strong>Highlight Ageing Risks:</strong> Automatically flag items nearing or exceeding their SLE</li>
+      <li><strong>Work Item Breakdown Support:</strong> Split large items into smaller, traceable deliverables</li>
+      <li><strong>Pull System Signals:</strong> Visual cues show when teams or workflow stages are ready for more work</li>
     </ul>
   </section>
 
