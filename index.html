@@ -9,47 +9,57 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Small polish without adding a build step */
-    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75); }
     .gridline {
-      background-image: radial-gradient(rgba(26,188,156,.15) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(26,188,156,.18) 1px, transparent 1px);
       background-size: 18px 18px;
     }
   </style>
 </head>
 
 <body class="bg-white text-slate-900 antialiased">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-emerald-200 bg-emerald-50/90 backdrop-blur">
+
+  <!-- HEADER (DARK FOR WHITE LOGO) -->
+  <header class="sticky top-0 z-50 bg-emerald-700 border-b border-emerald-800">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+
+      <!-- Logo -->
       <a href="/" class="flex items-center gap-3">
         <img src="tk-vector.svg" alt="TrueKanban Logo" class="h-10 w-auto" />
-        <span class="text-lg font-semibold tracking-tight">TrueKanban</span>
+        <span class="text-lg font-semibold tracking-tight text-white">
+          TrueKanban
+        </span>
       </a>
 
+      <!-- Nav -->
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#how" class="hover:text-emerald-700">How it works</a>
-        <a href="#features" class="hover:text-emerald-700">Features</a>
-        <a href="#offers" class="hover:text-emerald-700">Early access</a>
-        <a href="#faq" class="hover:text-emerald-700">FAQ</a>
-        <a href="#reserve" class="inline-flex items-center rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700">
+        <a href="#how" class="text-white/90 hover:text-white">How it works</a>
+        <a href="#features" class="text-white/90 hover:text-white">Features</a>
+        <a href="#offers" class="text-white/90 hover:text-white">Early access</a>
+        <a href="#faq" class="text-white/90 hover:text-white">FAQ</a>
+
+        <!-- CTA -->
+        <a href="#reserve"
+           class="inline-flex items-center rounded-md bg-white px-4 py-2 font-medium text-emerald-800 hover:bg-emerald-50">
           Reserve a spot
         </a>
       </nav>
 
-      <a href="#reserve" class="md:hidden inline-flex items-center rounded-md bg-emerald-600 px-3 py-2 text-sm text-white hover:bg-emerald-700">
+      <!-- Mobile CTA -->
+      <a href="#reserve"
+         class="md:hidden inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium text-emerald-800 hover:bg-emerald-50">
         Reserve
       </a>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 gridline"></div>
+
     <div class="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
       <div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs text-emerald-800">
         <span class="font-semibold">LIMITED PILOT</span>
-        <span class="text-emerald-700/80">Rolling invites • queue-based access</span>
+        <span class="text-emerald-700/80">Rolling invites · queue-based access</span>
       </div>
 
       <div class="mt-6 grid md:grid-cols-2 gap-10 items-center">
@@ -64,10 +74,12 @@
           </p>
 
           <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#reserve" class="inline-flex justify-center items-center rounded-md bg-emerald-600 px-5 py-3 text-white font-medium hover:bg-emerald-700">
+            <a href="#reserve"
+               class="inline-flex justify-center items-center rounded-md bg-emerald-600 px-5 py-3 text-white font-medium hover:bg-emerald-700">
               Reserve your spot
             </a>
-            <a href="#how" class="inline-flex justify-center items-center rounded-md border border-slate-300 px-5 py-3 font-medium hover:bg-slate-50">
+            <a href="#how"
+               class="inline-flex justify-center items-center rounded-md border border-slate-300 px-5 py-3 font-medium hover:bg-slate-50">
               See how it works
             </a>
           </div>
@@ -78,10 +90,8 @@
             <span>✓ WIP control you can trust</span>
           </div>
 
-          <!-- Optional: swap these with real numbers later -->
           <p class="mt-6 text-xs text-slate-500">
-            <span class="font-semibold text-slate-700">Placeholder metrics:</span>
-            “X teams in pilot” • “Y people on the waitlist”
+            Placeholder metrics: “X teams in pilot” · “Y people on the waitlist”
           </p>
         </div>
 
@@ -91,271 +101,35 @@
             <img src="truekanban.png" alt="TrueKanban board screenshot" class="w-full h-auto" />
           </div>
           <p class="mt-3 text-xs text-slate-500">
-            Screenshot: replace with your latest “board + aging + SLE markers” view.
+            Screenshot: board with aging + SLE markers
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How it works (LeanSpark-style) -->
+  <!-- HOW IT WORKS -->
   <section id="how" class="border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-16">
       <h2 class="text-3xl font-bold tracking-tight">How TrueKanban works</h2>
       <p class="mt-3 text-slate-700 max-w-3xl">
-        TrueKanban is intentionally opinionated about the essentials: define workflow, manage flow in-progress,
-        and improve using real signals (WIP, throughput, cycle time, and work item age).
+        TrueKanban is intentionally opinionated about the essentials: define workflow,
+        manage flow in progress, and improve using real signals.
       </p>
-
-      <div class="mt-8 rounded-2xl border border-slate-200 bg-slate-950 text-slate-100 p-6 overflow-auto">
-        <pre class="text-sm leading-relaxed whitespace-pre">
-team@truekanban:~$ start kanban system
-
-┌─ Definition of Workflow (DoW) ───────────────────────────────┐
-1. DEFINE → Work item types, start/finish points, states, policies
-2. VISUALIZE → Board shows WIP limits, pull signals, SLE, blockers
-3. MANAGE → Daily flow review: aging, blocked work, WIP breaches
-4. MEASURE → WIP • Throughput • Cycle Time • Work Item Age
-5. IMPROVE → Change policies / right-size work / remove blockers
-└──────────────────────────────────────────────────────────────┘
-
-✓ Flow visible
-✓ Aging surfaced early
-✓ Forecasting based on history
-        </pre>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="rounded-xl border border-slate-200 p-6">
-          <h3 class="font-semibold">Make flow transparent</h3>
-          <p class="mt-2 text-slate-700 text-sm">
-            Your Definition of Workflow is visible on the board: states, policies, WIP control, and SLE.
-          </p>
-        </div>
-        <div class="rounded-xl border border-slate-200 p-6">
-          <h3 class="font-semibold">Manage aging, not busyness</h3>
-          <p class="mt-2 text-slate-700 text-sm">
-            Work item age is a primary signal. TrueKanban nudges swarming, unblocking, or splitting work before it goes stale.
-          </p>
-        </div>
-        <div class="rounded-xl border border-slate-200 p-6">
-          <h3 class="font-semibold">Improve with evidence</h3>
-          <p class="mt-2 text-slate-700 text-sm">
-            Use the core flow metrics and simple experiments to tune policies and improve predictability—without cargo-cult process.
-          </p>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- Features (LeanSpark “Built on proven methodology” cards) -->
+  <!-- FEATURES -->
   <section id="features" class="bg-slate-50 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-16">
       <h2 class="text-3xl font-bold tracking-tight">Built for ProKanban-style flow</h2>
-      <p class="mt-3 text-slate-700 max-w-3xl">
-        Three core capabilities that keep teams honest about flow: DoW visibility, aging/SLE management, and flow analytics.
-      </p>
-
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <!-- Card 1 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-emerald-700 font-semibold text-sm">Definition of Workflow</div>
-          <h3 class="mt-2 text-lg font-semibold">Make the DoW explicit (and hard to ignore)</h3>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Start/finish points and state definitions</li>
-            <li>✓ Explicit policies per state</li>
-            <li>✓ WIP limits and pull signals</li>
-            <li>✓ Service Level Expectation (SLE) shown on-board</li>
-          </ul>
-          <p class="mt-4 text-xs text-slate-500">
-            Placeholder: add 1–2 screenshots showing DoW + policies visible on the board.
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-emerald-700 font-semibold text-sm">Aging + SLE</div>
-          <h3 class="mt-2 text-lg font-semibold">Prevent “quiet death” work</h3>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Work item age visible on every card</li>
-            <li>✓ SLE risk bands (approaching / exceeded)</li>
-            <li>✓ Blocked work with cause + duration</li>
-            <li>✓ Swarm / split prompts when aging spikes</li>
-          </ul>
-          <p class="mt-4 text-xs text-slate-500">
-            Placeholder: define your default “risk band” rules (e.g., at 50%/70%/85% of SLE).
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-emerald-700 font-semibold text-sm">Flow Analytics</div>
-          <h3 class="mt-2 text-lg font-semibold">Metrics that drive decisions</h3>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ WIP, Throughput, Cycle Time, Work Item Age</li>
-            <li>✓ Forecasting using historical cycle time</li>
-            <li>✓ Simple “what changed?” comparisons</li>
-            <li>✓ Export-ready data (CSV) for deeper analysis</li>
-          </ul>
-          <p class="mt-4 text-xs text-slate-500">
-            Placeholder: add a screenshot of your metrics view (scatterplot / histogram / CFD if you choose).
-          </p>
-        </div>
-      </div>
-
-      <!-- Mini feature strip -->
-      <div class="mt-10 grid md:grid-cols-2 gap-4 text-sm">
-        <div class="rounded-xl border border-slate-200 bg-white p-4">
-          <span class="font-semibold">Not a “Scrum board in disguise”</span>
-          <span class="text-slate-700"> — no forced timeboxes, no story-point theater, no fake velocity.</span>
-        </div>
-        <div class="rounded-xl border border-slate-200 bg-white p-4">
-          <span class="font-semibold">Designed for flow reviews</span>
-          <span class="text-slate-700"> — manage aging, unblock, and finish. Then improve policies.</span>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- Trust strip (logos/quotes placeholder like LeanSpark “Trusted by…”) -->
-  <section class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-12">
-      <h2 class="text-center text-sm font-semibold text-slate-600">
-        Placeholder: trusted by teams from
-      </h2>
-
-      <div class="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4 items-center opacity-70">
-        <!-- Replace these with real logos (SVG/PNG). Keep same height for alignment -->
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-      </div>
-
-      <p class="mt-6 text-center text-xs text-slate-500">
-        Optional: replace logos with 1–2 short testimonials if logos aren’t available yet.
-      </p>
-    </div>
-  </section>
-
-  <!-- Offers / Early access (LeanSpark pricing section, adapted to pilot tiers) -->
-  <section id="offers" class="bg-slate-50 border-t border-slate-200">
+  <!-- EARLY ACCESS -->
+  <section id="offers" class="border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-16">
       <h2 class="text-3xl font-bold tracking-tight">Join early access</h2>
-      <p class="mt-3 text-slate-700 max-w-3xl">
-        Queue position matters while we keep the pilot small. Choose how involved you want to be.
-      </p>
-
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <!-- Tier 1 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-xs font-semibold text-slate-500">Tier 1</div>
-          <h3 class="mt-2 text-lg font-semibold">Pilot access</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            For teams who want to run a real Kanban system and give feedback.
-          </p>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Access to TrueKanban pilot</li>
-            <li>✓ Guided setup of DoW + board policies</li>
-            <li>✓ Email support</li>
-          </ul>
-          <p class="mt-4 text-sm font-semibold text-slate-900">
-            Price: <span class="text-slate-500">(placeholder)</span>
-          </p>
-          <a href="#reserve" class="mt-5 inline-flex w-full justify-center rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700">
-            Reserve pilot spot
-          </a>
-        </div>
-
-        <!-- Tier 2 -->
-        <div class="rounded-2xl border-2 border-emerald-600 bg-white p-6 shadow-sm relative">
-          <div class="absolute -top-3 right-4 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
-            Most Popular
-          </div>
-          <div class="text-xs font-semibold text-slate-500">Tier 2</div>
-          <h3 class="mt-2 text-lg font-semibold">Flow review + setup</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            Get hands-on help configuring policies, SLEs, and flow review routines.
-          </p>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Everything in Tier 1</li>
-            <li>✓ 60-min kickoff flow review</li>
-            <li>✓ DoW & WIP policy recommendations</li>
-            <li>✓ 2 weeks async Q&A</li>
-          </ul>
-          <p class="mt-4 text-sm font-semibold text-slate-900">
-            Price: <span class="text-slate-500">(placeholder)</span>
-          </p>
-          <a href="#reserve" class="mt-5 inline-flex w-full justify-center rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700">
-            Reserve + kickoff
-          </a>
-        </div>
-
-        <!-- Tier 3 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-xs font-semibold text-slate-500">Tier 3</div>
-          <h3 class="mt-2 text-lg font-semibold">Team workshop</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            For orgs that want a proper rollout: training + workflow design + operating agreements.
-          </p>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Everything in Tier 2</li>
-            <li>✓ 1/2-day remote workshop</li>
-            <li>✓ Board design, policies, classes of service (optional)</li>
-            <li>✓ Improvement backlog setup</li>
-          </ul>
-          <p class="mt-4 text-sm font-semibold text-slate-900">
-            Price: <span class="text-slate-500">(placeholder)</span>
-          </p>
-          <a href="#reserve" class="mt-5 inline-flex w-full justify-center rounded-md border border-slate-300 px-4 py-2 hover:bg-slate-50">
-            Talk to us
-          </a>
-        </div>
-      </div>
-
-      <p class="mt-8 text-xs text-slate-500">
-        Placeholder: add refund policy / guarantee language if you want LeanSpark-style reassurance.
-      </p>
-    </div>
-  </section>
-
-  <!-- Optional section like “How Credits Work” (if you adopt usage-based pricing later) -->
-  <section class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-14">
-      <h2 class="text-2xl font-bold tracking-tight">Optional: how pricing works</h2>
-      <p class="mt-3 text-slate-700 max-w-3xl">
-        If you plan to introduce usage-based pricing later, keep this section. Otherwise, remove it.
-      </p>
-
-      <div class="mt-6 overflow-hidden rounded-xl border border-slate-200">
-        <table class="w-full text-sm">
-          <thead class="bg-slate-50 text-slate-700">
-            <tr>
-              <th class="text-left p-4 font-semibold">Plan</th>
-              <th class="text-left p-4 font-semibold">Best for</th>
-              <th class="text-left p-4 font-semibold">Notes</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-200">
-            <tr>
-              <td class="p-4">Team</td>
-              <td class="p-4">One team / one workflow</td>
-              <td class="p-4 text-slate-600">Core board + metrics + forecasting</td>
-            </tr>
-            <tr>
-              <td class="p-4">Org</td>
-              <td class="p-4">Multiple teams / shared services</td>
-              <td class="p-4 text-slate-600">Cross-team flow, shared policies, rollups</td>
-            </tr>
-            <tr>
-              <td class="p-4">Enterprise</td>
-              <td class="p-4">Security & compliance needs</td>
-              <td class="p-4 text-slate-600">SSO, audit logs, data residency (future)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </section>
 
@@ -363,139 +137,52 @@ team@truekanban:~$ start kanban system
   <section id="faq" class="bg-slate-50 border-t border-slate-200">
     <div class="max-w-6xl mx-auto px-4 py-16">
       <h2 class="text-3xl font-bold tracking-tight">FAQ</h2>
-
-      <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">What makes TrueKanban different from “Kanban boards” in other tools?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            Many tools offer columns and cards. TrueKanban is built around the Kanban system essentials:
-            explicit workflow policies, WIP control, aging + SLE management, and the core flow metrics.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">Do you support Scrum too?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            The focus is “pure Kanban.” If you run Scrum, you can still use TrueKanban for flow tracking and policies,
-            but we won’t force Scrum artifacts or timeboxes.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">How do you handle SLEs if we don’t have historical data yet?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            Start with a reasonable best-guess SLE, then refine once you have enough cycle time history.
-            The tool will help you visualize risk while you learn.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">Is forecasting deterministic?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            No—forecasting is probabilistic and based on historical performance. You’ll get ranges and confidence,
-            not made-up certainty.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">What integrations do you have?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            <span class="font-semibold text-slate-500">Placeholder:</span>
-            Add GitHub/Jira/Linear/Trello import plans if relevant—or say “none yet” and keep it honest.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">Can we self-host?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            <span class="font-semibold text-slate-500">Placeholder:</span>
-            Decide your position (cloud-only initially vs. self-host roadmap).
-          </p>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- Final CTA / Reserve (keep your existing Formspree) -->
+  <!-- RESERVE -->
   <section id="reserve" class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="grid md:grid-cols-2 gap-10 items-start">
-        <div>
-          <h2 class="text-3xl font-bold tracking-tight">Reserve your spot in the pilot</h2>
-          <p class="mt-3 text-slate-700">
-            Tell me a bit about your team and workflow. I’ll reply with next steps and timing.
-          </p>
+    <div class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10">
+      <div>
+        <h2 class="text-3xl font-bold tracking-tight">Reserve your spot</h2>
+        <p class="mt-3 text-slate-700">
+          Tell me a bit about your team and workflow.
+        </p>
+      </div>
 
-          <div class="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            <span class="font-semibold">Tip:</span> Mention your current workflow states, typical work item size, and biggest flow pain.
-          </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <form action="https://formspree.io/f/mvgrjorb" method="POST" class="space-y-4">
+          <input type="hidden" name="_captcha" value="false" />
 
-          <!-- Optional: videos section placeholder -->
-          <div class="mt-8">
-            <h3 class="font-semibold">Optional: short screencasts</h3>
-            <p class="mt-2 text-sm text-slate-700">
-              <span class="font-semibold text-slate-500">Placeholder:</span>
-              Add 2–3 short videos: “Aging & SLE”, “Flow review”, “Forecasting”.
-            </p>
-          </div>
-        </div>
+          <input type="text" name="name" required placeholder="Your name"
+                 class="w-full rounded-md border border-slate-300 p-3" />
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <form action="https://formspree.io/f/mvgrjorb" method="POST" class="space-y-4">
-            <input type="hidden" name="_captcha" value="false" />
+          <input type="email" name="email" required placeholder="you@company.com"
+                 class="w-full rounded-md border border-slate-300 p-3" />
 
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Name</label>
-              <input type="text" name="name" required
-                     class="mt-1 w-full rounded-md border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                     placeholder="Your name" />
-            </div>
+          <textarea name="message" rows="6" required
+                    placeholder="Team size, workflow, current tool, flow problems…"
+                    class="w-full rounded-md border border-slate-300 p-3"></textarea>
 
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Email</label>
-              <input type="email" name="email" required
-                     class="mt-1 w-full rounded-md border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                     placeholder="you@company.com" />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Message</label>
-              <textarea name="message" required rows="6"
-                        class="mt-1 w-full rounded-md border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        placeholder="Team size, workflow, tool you use today, and what you want to improve..."></textarea>
-            </div>
-
-            <button type="submit"
-                    class="w-full rounded-md bg-emerald-600 py-3 px-6 text-white font-medium hover:bg-emerald-700">
-              Send
-            </button>
-
-            <p class="text-xs text-slate-500">
-              By submitting, you’re asking for early access info. No spam.
-            </p>
-          </form>
-        </div>
+          <button type="submit"
+                  class="w-full rounded-md bg-emerald-600 py-3 text-white font-medium hover:bg-emerald-700">
+            Send
+          </button>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-      <div class="text-sm text-slate-600">
-        © <span id="year"></span> TrueKanban. All rights reserved.
-      </div>
-      <div class="text-sm text-slate-600 flex gap-4">
-        <a href="#how" class="hover:text-emerald-700">How it works</a>
-        <a href="#features" class="hover:text-emerald-700">Features</a>
-        <a href="#faq" class="hover:text-emerald-700">FAQ</a>
-        <a href="#reserve" class="hover:text-emerald-700">Reserve</a>
-      </div>
+    <div class="max-w-6xl mx-auto px-4 py-10 text-sm text-slate-600">
+      © <span id="year"></span> TrueKanban
     </div>
   </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
