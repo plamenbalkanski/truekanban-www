@@ -1,503 +1,325 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrueKanban — Pure Kanban, helping your improve flow</title>
-  <meta name="description" content="TrueKanban is a pure Kanban tool aligned to the Kanban Guide —optimise flow, control WIP, prevent unnecessary aging, and deliver predictably." />
-  <link rel="icon" type="image/png" sizes="32x32" href="truekanban_favicon_32x32.png" />
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f2f30">
+  <meta name="description" content="TrueKanban helps product managers connect goals to initiatives, see what needs attention, and discuss delivery with evidence. Request pilot access.">
+  <title>TrueKanban | Product visibility from goals to delivery</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="/truekanban-favicon-v2.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="/truekanban-icon-v2.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TrueKanban | Product visibility from goals to delivery">
+  <meta property="og:description" content="Know which product initiatives need attention, and why. Connect goals, decisions and delivery evidence in one place.">
+  <meta property="og:url" content="https://www.truekanban.com/">
   <style>
-    /* Small polish without adding a build step */
-    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,.75); }
-    .gridline {
-      background-image: radial-gradient(rgba(26,188,156,.15) 1px, transparent 1px);
-      background-size: 18px 18px;
+    :root {
+      color-scheme: light;
+      --ink: #1f2f30;
+      --ink-soft: #31484a;
+      --teal: #3a767b;
+      --teal-dark: #2a5c60;
+      --teal-pale: #dcebec;
+      --paper: #f7f9f8;
+      --line: #d9e3e2;
+      --muted: #5d7072;
+      --white: #fff;
+      --amber: #a96a24;
+      --red: #c34d49;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); line-height: 1.55; }
+    img { max-width: 100%; }
+    a { color: inherit; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid #75bfc3; outline-offset: 3px; }
+    .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 100; padding: .7rem 1rem; border-radius: .5rem; background: var(--white); }
+    .skip-link:focus { top: .8rem; }
+    .container { width: min(100% - 2.5rem, 1160px); margin-inline: auto; }
+    .section { padding: 5.5rem 0; }
+    .eyebrow { margin: 0 0 .9rem; color: var(--teal); font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(2.7rem, 6vw, 5.2rem); line-height: 1.06; letter-spacing: -.055em; }
+    h2 { font-size: clamp(2rem, 3.7vw, 3rem); line-height: 1.14; letter-spacing: -.04em; }
+    h3 { font-size: 1.2rem; line-height: 1.3; letter-spacing: -.02em; }
+    p { color: var(--muted); }
+    .lead { font-size: clamp(1.08rem, 1.7vw, 1.26rem); }
+    .small { font-size: .84rem; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 47px; padding: .7rem 1.15rem; border: 1px solid transparent; border-radius: .7rem; font-weight: 750; text-align: center; text-decoration: none; transition: background .18s, transform .18s, box-shadow .18s; }
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { background: var(--teal); color: var(--white); }
+    .button-primary:hover { background: var(--teal-dark); box-shadow: 0 8px 20px #1f2f3026; }
+    .button-light { background: var(--white); color: var(--ink); }
+    .button-light:hover { background: #e8f1f1; }
+    .button-outline { border-color: var(--line); background: transparent; color: var(--ink); }
+    .button-outline:hover { background: var(--white); }
+    .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--line); background: #f7f9f8f2; backdrop-filter: blur(12px); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 76px; }
+    .brand { display: inline-flex; align-items: center; gap: .7rem; font-size: 1.3rem; font-weight: 820; letter-spacing: -.045em; text-decoration: none; white-space: nowrap; }
+    .brand img { width: 43px; height: 43px; border-radius: 10px; }
+    .nav { display: flex; align-items: center; gap: 1.45rem; }
+    .nav a:not(.button) { color: var(--ink-soft); font-size: .9rem; font-weight: 650; text-decoration: none; }
+    .nav a:not(.button):hover { color: var(--teal-dark); }
+    .mobile-cta { display: none; }
+    .hero { padding: 5.1rem 0 5.8rem; background: var(--ink); color: var(--white); overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+    .hero .eyebrow { color: #9ad3d5; }
+    .hero h1 { max-width: 690px; margin-bottom: 1.5rem; }
+    .hero .lead { max-width: 620px; color: #c9dddd; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin: 2rem 0 1.3rem; }
+    .hero-note { color: #bdd1d0; font-size: .88rem; }
+    .hero-preview { position: relative; }
+    .hero-preview::before { content: ""; position: absolute; inset: 8% -7% -8% 8%; border-radius: 32px; background: #3a767b55; filter: blur(40px); }
+    .app-window { position: relative; overflow: hidden; border: 1px solid #c8d8d7; border-radius: 18px; background: #f4f7f7; box-shadow: 0 28px 70px #07171966; color: var(--ink); }
+    .window-top { display: flex; align-items: center; gap: .55rem; padding: .85rem 1.05rem; border-bottom: 1px solid var(--line); background: var(--white); }
+    .window-dot { width: .48rem; height: .48rem; border-radius: 50%; background: #b2c7c6; }
+    .window-label { margin-left: .6rem; color: var(--muted); font-size: .72rem; font-weight: 700; }
+    .window-body { padding: 1.25rem; }
+    .preview-header { display: flex; justify-content: space-between; align-items: start; gap: 1rem; padding: 1rem 1.2rem; border-radius: 12px; background: var(--ink); color: var(--white); }
+    .preview-header small { color: #a8cccd; font-size: .68rem; }
+    .preview-header strong { display: block; margin-top: .1rem; font-size: 1.15rem; }
+    .preview-header span { align-self: center; border: 1px solid #ffffff45; border-radius: 6px; padding: .32rem .55rem; font-size: .68rem; }
+    .preview-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin: .7rem 0 1rem; }
+    .preview-metric { padding: .72rem .8rem; border: 1px solid var(--line); border-radius: 9px; background: var(--white); }
+    .preview-metric strong { display: block; font-size: 1.35rem; line-height: 1.15; }
+    .preview-metric span { color: var(--muted); font-size: .67rem; }
+    .preview-section-title { margin: 0 0 .6rem; font-size: .81rem; font-weight: 800; }
+    .signal { display: grid; grid-template-columns: 4px 1fr; gap: .7rem; margin-top: .5rem; padding: .7rem; border: 1px solid var(--line); border-radius: 9px; background: var(--white); }
+    .signal-bar { border-radius: 4px; background: var(--red); }
+    .signal-amber .signal-bar { background: #e9a329; }
+    .signal-label { color: var(--red); font-size: .62rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .signal-amber .signal-label { color: var(--amber); }
+    .signal strong { display: block; margin-top: .15rem; font-size: .77rem; }
+    .signal p { margin: .12rem 0 0; font-size: .67rem; line-height: 1.35; }
+    .preview-caption { position: relative; margin: .75rem 0 0; color: #c2d7d6; font-size: .77rem; }
+    .intro { background: var(--white); }
+    .intro-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 4rem; align-items: start; }
+    .intro h2 { max-width: 600px; }
+    .intro-copy p { font-size: 1.07rem; }
+    .benefit-list { display: grid; gap: 1rem; margin-top: 2rem; }
+    .benefit { padding-left: 1.1rem; border-left: 3px solid var(--teal); }
+    .benefit strong { display: block; }
+    .benefit span { color: var(--muted); }
+    .section-heading { max-width: 730px; margin-bottom: 2rem; }
+    .section-heading p { font-size: 1.08rem; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .step { padding: 1.6rem; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+    .step-number { display: inline-flex; align-items: center; justify-content: center; width: 2.3rem; height: 2.3rem; margin-bottom: 1.25rem; border-radius: 9px; background: var(--teal-pale); color: var(--teal-dark); font-weight: 800; }
+    .step h3 { margin-bottom: .6rem; }
+    .step p { margin: 0; }
+    .views { background: var(--white); }
+    .view-row { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: clamp(2rem, 7vw, 6rem); padding: 2.5rem 0; border-top: 1px solid var(--line); }
+    .view-row:nth-of-type(even) .view-copy { order: 2; }
+    .view-row:nth-of-type(even) .view-visual { order: 1; }
+    .view-copy p { font-size: 1.03rem; }
+    .view-copy ul { padding-left: 1.2rem; color: var(--muted); }
+    .view-copy li { margin: .45rem 0; }
+    .view-visual { min-width: 0; padding: 1rem; border: 1px solid var(--line); border-radius: 16px; background: #eef4f3; }
+    .mini-panel { padding: 1.2rem; border: 1px solid var(--line); border-radius: 12px; background: var(--white); box-shadow: 0 7px 20px #1f2f300b; }
+    .mini-eyebrow { color: var(--teal); font-size: .65rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .mini-panel h3 { margin: .35rem 0 .9rem; font-size: 1.12rem; }
+    .goal-list { display: grid; gap: .45rem; }
+    .goal { padding: .6rem .75rem; border: 1px solid var(--line); border-radius: 8px; font-size: .78rem; font-weight: 650; }
+    .goal.depth-1 { margin-left: 1.2rem; background: #f7fafa; }
+    .goal.depth-2 { margin-left: 2.4rem; background: #f2f7f7; }
+    .goal.depth-3 { margin-left: 3.6rem; border-color: #b8d6d6; background: var(--teal-pale); }
+    .goal small { display: block; color: var(--muted); font-weight: 500; }
+    .summary-mini { display: grid; gap: .6rem; }
+    .summary-mini .signal { margin: 0; }
+    .forecast-row { display: grid; grid-template-columns: 1fr 1.2fr; align-items: center; gap: 1rem; padding: .9rem 0; border-top: 1px solid var(--line); font-size: .8rem; }
+    .forecast-row strong { display: block; }
+    .forecast-row small { color: var(--muted); }
+    .forecast-band { display: flex; overflow: hidden; height: 1.4rem; border-radius: 5px; }
+    .forecast-band i { display: block; width: 19%; background: #e94b3c; }
+    .forecast-band i:nth-child(2) { width: 16%; background: #f5842c; }
+    .forecast-band i:nth-child(3) { width: 22%; background: #efbb32; }
+    .forecast-band i:nth-child(4) { width: 20%; background: #8ac440; }
+    .forecast-band i:nth-child(5) { width: 23%; background: #31a652; }
+    .disclosure { margin: .8rem 0 0; color: var(--muted); font-size: .76rem; }
+    .pilot { background: var(--ink); color: var(--white); }
+    .pilot-grid { display: grid; grid-template-columns: 1fr .9fr; gap: 4rem; align-items: center; }
+    .pilot .eyebrow { color: #9ad3d5; }
+    .pilot p { color: #c9dddd; }
+    .pilot-list { padding-left: 1.2rem; color: #dcebea; }
+    .pilot-list li { margin: .5rem 0; }
+    .pilot-card { padding: 1.7rem; border-radius: 16px; background: var(--white); color: var(--ink); }
+    .pilot-card h3 { margin-bottom: .55rem; }
+    .pilot-card p { color: var(--muted); }
+    .pilot-card .button { width: 100%; }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+    details { border: 1px solid var(--line); border-radius: 11px; background: var(--white); }
+    summary { cursor: pointer; padding: 1.1rem 1.25rem; font-weight: 750; }
+    details p { padding: 0 1.25rem 1.15rem; margin-bottom: 0; }
+    .contact { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 4rem; }
+    .contact-form { display: grid; gap: 1rem; padding: 1.6rem; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); }
+    .contact-form label { display: block; margin-bottom: .35rem; font-size: .88rem; font-weight: 700; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: .78rem .9rem; border: 1px solid #b9cccb; border-radius: 8px; background: var(--white); color: var(--ink); }
+    .contact-form textarea { resize: vertical; }
+    .contact-form .button { width: 100%; }
+    .site-footer { padding: 2rem 0; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 1.2rem; color: var(--muted); font-size: .85rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .footer-links a:hover { color: var(--teal-dark); }
+    @media (max-width: 900px) {
+      .nav { gap: .8rem; }
+      .nav a:not(.button) { display: none; }
+      .hero-grid, .intro-grid, .pilot-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-preview { max-width: 680px; }
+      .view-row { gap: 2rem; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 2rem, 1160px); }
+      .section { padding: 4rem 0; }
+      .hero { padding: 3.7rem 0 4rem; }
+      .brand { font-size: 1.12rem; }
+      .brand img { width: 38px; height: 38px; }
+      .nav { display: none; }
+      .mobile-cta { display: inline-flex; min-height: 40px; padding: .5rem .7rem; font-size: .78rem; }
+      .steps, .faq-grid { grid-template-columns: 1fr; }
+      .view-row { grid-template-columns: 1fr; padding: 2rem 0; }
+      .view-row:nth-of-type(even) .view-copy, .view-row:nth-of-type(even) .view-visual { order: initial; }
+      .goal.depth-3 { margin-left: 2.8rem; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+      .button:hover { transform: none; }
     }
   </style>
 </head>
-
-<body class="bg-white text-slate-900 antialiased">
-  <!-- Header (UPDATED: dark header so white logo shows) -->
-  <header class="sticky top-0 z-50 border-b border-emerald-800 bg-emerald-700">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3">
-        <img src="tk-vector.svg" alt="TrueKanban Logo" class="h-10 w-auto" />
-        <span class="text-lg font-semibold tracking-tight text-white">TrueKanban</span>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="TrueKanban home">
+        <img src="/truekanban-icon-v2.png" alt="" width="43" height="43">
+        <span>TrueKanban</span>
       </a>
-
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#how" class="text-white/90 hover:text-white">How it works</a>
-        <a href="#features" class="text-white/90 hover:text-white">Features</a>
-        <a href="#offers" class="text-white/90 hover:text-white">Early access</a>
-        <a href="#faq" class="text-white/90 hover:text-white">FAQ</a>
-
-        <!-- UPDATED: inverted CTA button -->
-        <a href="#reserve" class="inline-flex items-center rounded-md bg-white px-4 py-2 font-medium text-emerald-800 hover:bg-emerald-50">
-          Reserve your spot
-        </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#how">How it works</a>
+        <a href="#views">Product views</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://truekanban.onrender.com/login">Sign in</a>
+        <a class="button button-primary" href="#contact">Request pilot access</a>
       </nav>
-
-      <!-- UPDATED: inverted mobile button -->
-      <a href="#reserve" class="md:hidden inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-medium text-emerald-800 hover:bg-emerald-50">
-        Reserve
-      </a>
+      <a class="button button-primary mobile-cta" href="#contact">Request access</a>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 gridline"></div>
-    <div class="relative max-w-6xl mx-auto px-4 py-16 md:py-20">
-      <div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs text-emerald-800">
-        <span class="font-semibold">LIMITED PILOT</span>
-        <span class="text-emerald-700/80">Rolling invites • waitlist spots available</span>
-      </div>
-
-      <div class="mt-6 grid md:grid-cols-2 gap-10 items-center">
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-grid">
         <div>
-          <h1 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
-            A <span class="text-emerald-700">pure Kanban</span> tool for teams who care about flow
-          </h1>
-
-          <p class="mt-4 text-lg text-slate-700">
-            TrueKanban helps teams run a Kanban system aligned with the Kanban Guide:
-            visualize workflow, actively manage WIP and aging, and continuously improve flow.
-          </p>
-
-          <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#reserve" class="inline-flex justify-center items-center rounded-md bg-emerald-600 px-5 py-3 text-white font-medium hover:bg-emerald-700">
-              Reserve your spot
-            </a>
-            <a href="#how" class="inline-flex justify-center items-center rounded-md border border-slate-300 px-5 py-3 font-medium hover:bg-slate-50">
-              See how it works
-            </a>
+          <p class="eyebrow">Product visibility for real teams</p>
+          <h1 id="hero-heading">Know which product initiatives need attention, and why.</h1>
+          <p class="lead">Connect goals to initiatives, see blockers and target dates in one place, and bring delivery evidence into the conversation.</p>
+          <div class="hero-actions">
+            <a class="button button-light" href="#contact">Request pilot access</a>
+            <a class="button button-outline" href="#how" style="border-color:#729091;color:#fff">See how it works</a>
           </div>
-
-          <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
-            <span>✓ Work item age visible everywhere</span>
-            <span>✓ SLEs on the board</span>
-            <span>✓ WIP control you can trust</span>
-          </div>
-
-          <!-- Optional: swap these with real numbers later -->
-          <p class="mt-6 text-xs text-slate-500">
-            <span class="font-semibold text-slate-700">Placeholder metrics:</span>
-            “X teams in pilot” • “Y people on the waitlist”
-          </p>
+          <p class="hero-note">For product managers and delivery leads. Product boards work on their own, with optional delivery-team boards.</p>
         </div>
-
-        <div class="relative">
-          <div class="absolute -inset-3 rounded-2xl bg-emerald-200/40 blur-xl"></div>
-          <div class="relative rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-            <img src="truekanban.png" alt="TrueKanban board screenshot" class="w-full h-auto" />
-          </div>
-          <p class="mt-3 text-xs text-slate-500">
-            Actual screenshot from my current test board.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How it works (LeanSpark-style) -->
-  <section id="how" class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold tracking-tight">How TrueKanban works</h2>
-      <p class="mt-3 text-slate-700 max-w-3xl">
-        TrueKanban is intentionally opinionated about the essentials: define workflow, manage flow in-progress,
-        and improve using real signals (WIP, throughput, cycle time, and work item age).
-      </p>
-
-      <div class="mt-8 rounded-2xl border border-slate-200 bg-slate-950 text-slate-100 p-6 overflow-auto">
-        <pre class="text-sm leading-relaxed whitespace-pre">
-team@truekanban:~$ start kanban system
-
-┌─ Definition of Workflow (DoW) ───────────────────────────────┐
-1. DEFINE → Work item types, start/finish points, states, policies
-2. VISUALIZE → Board shows WIP limits, pull signals, SLE, blockers
-3. MANAGE → Daily flow review: aging, blocked work, WIP breaches
-4. MEASURE → WIP • Throughput • Cycle Time • Work Item Age
-5. IMPROVE → Change policies / right-size work / remove blockers
-└──────────────────────────────────────────────────────────────┘
-
-✓ Flow visible
-✓ Aging surfaced early
-✓ Forecasting based on history
-        </pre>
-      </div>
-
-      <div class="mt-8 grid md:grid-cols-3 gap-6">
-        <div class="rounded-xl border border-slate-200 p-6">
-          <h3 class="font-semibold">Make flow transparent</h3>
-          <p class="mt-2 text-slate-700 text-sm">
-            Your Definition of Workflow is visible on the board: states, policies, WIP control, and SLE.
-          </p>
-        </div>
-        <div class="rounded-xl border border-slate-200 p-6">
-          <h3 class="font-semibold">Manage aging, not busyness</h3>
-          <p class="mt-2 text-slate-700 text-sm">
-            Work item age is a primary signal. TrueKanban nudges swarming, unblocking, or splitting work before it goes stale.
-          </p>
-        </div>
-        <div class="rounded-xl border border-slate-200 p-6">
-          <h3 class="font-semibold">Improve with evidence</h3>
-          <p class="mt-2 text-slate-700 text-sm">
-            Use the core flow metrics and simple experiments to tune policies and improve predictability—without cargo-cult process.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features (LeanSpark “Built on proven methodology” cards) -->
-  <section id="features" class="bg-slate-50 border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold tracking-tight">Built for real Kanban-style flow</h2>
-      <p class="mt-3 text-slate-700 max-w-3xl">
-        Three core capabilities that keep teams honest about flow: DoW visibility, aging/SLE management, and flow analytics.
-      </p>
-
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <!-- Card 1 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-emerald-700 font-semibold text-sm">Definition of Workflow</div>
-          <h3 class="mt-2 text-lg font-semibold">Make the DoW explicit (and hard to ignore)</h3>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Start/finish points and state definitions</li>
-            <li>✓ Explicit policies per state</li>
-            <li>✓ WIP limits and pull signals</li>
-            <li>✓ Service Level Expectation (SLE) shown on-board</li>
-          </ul>
-          <p class="mt-4 text-xs text-slate-500">
-            Placeholder: add 1–2 screenshots showing DoW + policies visible on the board.
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-emerald-700 font-semibold text-sm">Aging + SLE</div>
-          <h3 class="mt-2 text-lg font-semibold">Prevent “quiet death” work</h3>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Work item age visible on every card</li>
-            <li>✓ SLE risk bands (approaching / exceeded)</li>
-            <li>✓ Blocked work with cause + duration</li>
-            <li>✓ Swarm / split prompts when aging spikes</li>
-          </ul>
-          <p class="mt-4 text-xs text-slate-500">
-            Placeholder: define your default “risk band” rules (e.g., at 50%/70%/85% of SLE).
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-emerald-700 font-semibold text-sm">Flow Analytics</div>
-          <h3 class="mt-2 text-lg font-semibold">Metrics that drive decisions</h3>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ WIP, Throughput, Cycle Time, Work Item Age</li>
-            <li>✓ Forecasting using historical cycle time</li>
-            <li>✓ Simple “what changed?” comparisons</li>
-            <li>✓ Export-ready data (CSV) for deeper analysis</li>
-          </ul>
-          <p class="mt-4 text-xs text-slate-500">
-            Placeholder: add a screenshot of your metrics view (scatterplot / histogram / CFD if you choose).
-          </p>
-        </div>
-      </div>
-
-      <!-- Mini feature strip -->
-      <div class="mt-10 grid md:grid-cols-2 gap-4 text-sm">
-        <div class="rounded-xl border border-slate-200 bg-white p-4">
-          <span class="font-semibold">Not a “Scrum board in disguise”</span>
-          <span class="text-slate-700"> — no forced timeboxes, no story-point theater, no fake velocity.</span>
-        </div>
-        <div class="rounded-xl border border-slate-200 bg-white p-4">
-          <span class="font-semibold">Designed for flow reviews</span>
-          <span class="text-slate-700"> — manage aging, unblock, and finish. Then improve policies.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trust strip (logos/quotes placeholder like LeanSpark “Trusted by…”) -->
-  <section class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-12">
-      <h2 class="text-center text-sm font-semibold text-slate-600">
-        Placeholder: trusted by teams from
-      </h2>
-
-      <div class="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4 items-center opacity-70">
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-        <div class="h-10 rounded bg-slate-100 border border-slate-200 flex items-center justify-center text-xs text-slate-500">Logo</div>
-      </div>
-
-      <p class="mt-6 text-center text-xs text-slate-500">
-        Optional: replace logos with 1–2 short testimonials if logos aren’t available yet.
-      </p>
-    </div>
-  </section>
-
-  <!-- Offers / Early access -->
-  <section id="offers" class="bg-slate-50 border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold tracking-tight">Join early access</h2>
-      <p class="mt-3 text-slate-700 max-w-3xl">
-        Queue position matters while we keep the pilot small. Choose how involved you want to be.
-      </p>
-
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <!-- Tier 1 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-xs font-semibold text-slate-500">Tier 1</div>
-          <h3 class="mt-2 text-lg font-semibold">Pilot access (20 spots) </h3>
-          <p class="mt-2 text-sm text-slate-700">
-            For teams who want to run a real Kanban system and give feedback.
-          </p>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Access to TrueKanban pilot</li>
-            <li>✓ Guided setup of DoW + board policies</li>
-            <li>✓ Email support</li>
-            <li>✓ Premium features (when available) </li>
-          </ul>
-          <p class="mt-4 text-sm font-semibold text-slate-900">
-            Price: <span class="text-slate-500">£99 for 6 months from March 1st, then lock in £20/month (public price £49/month) </span>
-          </p>
-          <a href="#reserve" class="mt-5 inline-flex w-full justify-center rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700">
-            Reserve pilot spot
-          </a>
-        </div>
-
-        <!-- Tier 2 -->
-        <div class="rounded-2xl border-2 border-emerald-600 bg-white p-6 shadow-sm relative">
-          <div class="absolute -top-3 right-4 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
-            Best Value
-          </div>
-          <div class="text-xs font-semibold text-slate-500">Tier 2</div>
-          <h3 class="mt-2 text-lg font-semibold">Flow review + setup (10 spots)</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            Get hands-on help configuring policies, SLEs, and flow review routines.
-          </p>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Everything in Tier 1</li>
-            <li>✓ 60-min kickoff flow review</li>
-            <li>✓ DoW & WIP policy recommendations</li>
-            <li>✓ 2 weeks async Q&A</li>
-          </ul>
-          <p class="mt-4 text-sm font-semibold text-slate-900">
-            Price: <span class="text-slate-500">£149 for 6 months from March 1st, then lock in £20/month (public price £49/month)</span>
-          </p>
-          <a href="#reserve" class="mt-5 inline-flex w-full justify-center rounded-md bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700">
-            Reserve + kickoff
-          </a>
-        </div>
-
-        <!-- Tier 3 -->
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div class="text-xs font-semibold text-slate-500">Tier 3</div>
-          <h3 class="mt-2 text-lg font-semibold">Team workshop (5 spots)</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            For orgs that want a proper rollout: training + workflow design + operating agreements.
-          </p>
-          <ul class="mt-4 space-y-2 text-sm text-slate-700">
-            <li>✓ Everything in Tier 2</li>
-            <li>✓ 1/2-day remote workshop</li>
-            <li>✓ Board design, policies, classes of service (optional)</li>
-            <li>✓ Improvement backlog setup</li>
-          </ul>
-          <p class="mt-4 text-sm font-semibold text-slate-900">
-            Price: <span class="text-slate-500">£249 for 6 months from March 1st, then lock in £20/month (public price £49/month)</span>
-          </p>
-          <a href="#reserve" class="mt-5 inline-flex w-full justify-center rounded-md border border-slate-300 px-4 py-2 hover:bg-slate-50">
-            Talk to us
-          </a>
-        </div>
-      </div>
-
-      <p class="mt-8 text-xs text-slate-500">
-        Placeholder: add refund policy / guarantee language if you want LeanSpark-style reassurance.
-      </p>
-    </div>
-  </section>
-
-  <!-- Optional section like “How Credits Work” -->
-  <section class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-14">
-      <h2 class="text-2xl font-bold tracking-tight">How post-pilot pricing will work</h2>
-      <p class="mt-3 text-slate-700 max-w-3xl">
-      </p>
-
-      <div class="mt-6 overflow-hidden rounded-xl border border-slate-200">
-        <table class="w-full text-sm">
-          <thead class="bg-slate-50 text-slate-700">
-            <tr>
-              <th class="text-left p-4 font-semibold">Plan</th>
-              <th class="text-left p-4 font-semibold">Best for</th>
-              <th class="text-left p-4 font-semibold">Notes</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-200">
-            <tr>
-              <td class="p-4">Team</td>
-              <td class="p-4">One team / one workflow</td>
-              <td class="p-4 text-slate-600">Core board + metrics + forecasting</td>
-            </tr>
-            <tr>
-              <td class="p-4">Org</td>
-              <td class="p-4">Multiple teams / multiple workflows</td>
-              <td class="p-4 text-slate-600">All in Team + Cross-team flow, shared policies, portfolio board</td>
-            </tr>
-            <tr>
-              <td class="p-4">Enterprise</td>
-              <td class="p-4">Security & compliance needs</td>
-              <td class="p-4 text-slate-600">All in Org + SSO, audit logs, data residency (future)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="bg-slate-50 border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold tracking-tight">FAQ</h2>
-
-      <div class="mt-8 grid md:grid-cols-2 gap-6">
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">What makes TrueKanban different from “Kanban boards” in other tools?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            Many tools offer columns and cards. TrueKanban is built around the Kanban system essentials:
-            explicit workflow policies, WIP control, aging + SLE management, and the core flow metrics.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">Do you support Scrum too?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            The focus is “pure Kanban.” If you run Scrum, you can still use TrueKanban for flow tracking and policies,
-            but we won’t force Scrum artifacts or timeboxes.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">How do you handle SLEs if we don’t have historical data yet?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            Start with a reasonable best-guess SLE, then refine once you have enough cycle time history.
-            The tool will help you visualize risk while you learn.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">Is forecasting deterministic?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            No—forecasting is probabilistic and based on historical performance. You’ll get ranges and confidence,
-            not made-up certainty.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">What integrations do you have?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            <span class="font-semibold text-slate-500">Placeholder:</span>
-            Add GitHub/Jira/Linear/Trello import plans if relevant—or say “none yet” and keep it honest.
-          </p>
-        </div>
-
-        <div class="rounded-xl border border-slate-200 bg-white p-6">
-          <h3 class="font-semibold">Can we self-host?</h3>
-          <p class="mt-2 text-sm text-slate-700">
-            <span class="font-semibold text-slate-500">Placeholder:</span>
-            Decide your position (cloud-only initially vs. self-host roadmap).
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA / Reserve (keep your existing Formspree) -->
-  <section id="reserve" class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="grid md:grid-cols-2 gap-10 items-start">
-        <div>
-          <h2 class="text-3xl font-bold tracking-tight">Reserve your spot in the pilot</h2>
-          <p class="mt-3 text-slate-700">
-            Tell me a bit about your team and workflow. I’ll reply with next steps and timing.
-          </p>
-
-          <div class="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
-            <span class="font-semibold">Tip:</span> Mention your current workflow states, typical work item size, and biggest flow pain.
-          </div>
-
-          <!-- Optional: videos section placeholder -->
-          <div class="mt-8">
-            <h3 class="font-semibold">Optional: short screencasts</h3>
-            <p class="mt-2 text-sm text-slate-700">
-              <span class="font-semibold text-slate-500">Placeholder:</span>
-              Add 2–3 short videos: “Aging & SLE”, “Flow review”, “Forecasting”.
-            </p>
-          </div>
-        </div>
-
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <form action="https://formspree.io/f/mvgrjorb" method="POST" class="space-y-4">
-            <input type="hidden" name="_captcha" value="false" />
-
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Name</label>
-              <input type="text" name="name" required
-                     class="mt-1 w-full rounded-md border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                     placeholder="Your name" />
+        <div class="hero-preview">
+          <div class="app-window" role="img" aria-label="Illustrative TrueKanban product summary showing three initiatives that need attention">
+            <div class="window-top"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span><span class="window-label">TrueKanban, product summary</span></div>
+            <div class="window-body">
+              <div class="preview-header"><div><small>PRODUCT BOARD</small><strong>Customer experience</strong></div><span>Planning &nbsp; Board &nbsp; Forecast</span></div>
+              <div class="preview-metrics"><div class="preview-metric"><strong>4</strong><span>Now</span></div><div class="preview-metric"><strong>3</strong><span>Need attention</span></div><div class="preview-metric"><strong>2</strong><span>Completed</span></div></div>
+              <p class="preview-section-title">Needs attention</p>
+              <div class="signal"><span class="signal-bar"></span><div><span class="signal-label">Waiting for a decision</span><strong>Simplify account setup</strong><p>Decision needed on the sign-in approach before work continues.</p></div></div>
+              <div class="signal signal-amber"><span class="signal-bar"></span><div><span class="signal-label">Target approaching</span><strong>Improve first-week activation</strong><p>Target date is close, review progress and next steps.</p></div></div>
+              <div class="signal signal-amber"><span class="signal-bar"></span><div><span class="signal-label">Missing target</span><strong>Make billing status clearer</strong><p>Add a date if this initiative has a delivery commitment.</p></div></div>
             </div>
-
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Email</label>
-              <input type="email" name="email" required
-                     class="mt-1 w-full rounded-md border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                     placeholder="you@company.com" />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Message</label>
-              <textarea name="message" required rows="6"
-                        class="mt-1 w-full rounded-md border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                        placeholder="Team size, workflow, tool you use today, and what you want to improve..."></textarea>
-            </div>
-
-            <button type="submit"
-                    class="w-full rounded-md bg-emerald-600 py-3 px-6 text-white font-medium hover:bg-emerald-700">
-              Send
-            </button>
-
-            <p class="text-xs text-slate-500">
-              By submitting, you’re asking for early access info. No spam.
-            </p>
-          </form>
+          </div>
+          <p class="preview-caption">Illustrative interface and example initiatives, not customer data.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-      <div class="text-sm text-slate-600">
-        © <span id="year"></span> TrueKanban. All rights reserved.
+    <section class="section intro" aria-labelledby="intro-heading">
+      <div class="container intro-grid">
+        <div><p class="eyebrow">The problem</p><h2 id="intro-heading">Plans are easy to present. Keeping sight of them is harder.</h2></div>
+        <div class="intro-copy">
+          <p>Product work often spans annual goals, quarterly outcomes, initiatives and delivery teams. When the work moves forward, a roadmap alone does not show which decisions are waiting or which dates need a conversation.</p>
+          <p>TrueKanban gives you a product-level view of that work. It surfaces recorded blockers and date signals, then lets you open the underlying initiative to understand the context.</p>
+          <div class="benefit-list">
+            <div class="benefit"><strong>Know what needs attention</strong><span>See blocked work, approaching targets and missing commitments.</span></div>
+            <div class="benefit"><strong>Keep the reason close to the work</strong><span>Link initiatives to goals and keep updates on the cards.</span></div>
+            <div class="benefit"><strong>Discuss dates with evidence</strong><span>Compare active initiatives with completed work when enough history exists.</span></div>
+          </div>
+        </div>
       </div>
-      <div class="text-sm text-slate-600 flex gap-4">
-        <a href="#how" class="hover:text-emerald-700">How it works</a>
-        <a href="#features" class="hover:text-emerald-700">Features</a>
-        <a href="#faq" class="hover:text-emerald-700">FAQ</a>
-        <a href="#reserve" class="hover:text-emerald-700">Reserve</a>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+    <section id="how" class="section" aria-labelledby="how-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">How it works</p><h2 id="how-heading">From intent to informed action.</h2><p>Start with a product board. Add a delivery-team board only if it helps your team manage the work.</p></div>
+        <div class="steps">
+          <article class="step"><span class="step-number">01</span><h3>Connect the plan</h3><p>Set a vision, organise annual and quarterly goals, and align initiatives to the team goals they support.</p></article>
+          <article class="step"><span class="step-number">02</span><h3>Review what changed</h3><p>Use the summary to spot blocked initiatives, approaching or passed targets, and work without a target date.</p></article>
+          <article class="step"><span class="step-number">03</span><h3>Challenge dates constructively</h3><p>When your board has enough completed work, compare current initiatives with that history. Use the result as a discussion aid, not a promise.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="views" class="section views" aria-labelledby="views-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Inside TrueKanban</p><h2 id="views-heading">One product, three useful views.</h2><p>Each view answers a different question. The board remains available for day-to-day work.</p></div>
+        <div class="view-row">
+          <div class="view-copy"><p class="eyebrow">Planning</p><h3>What are we trying to achieve?</h3><p>See the path from vision to annual goal, quarterly OKR, team goal and initiative. Reorder and realign initiatives as plans evolve.</p><ul><li>Make the connection between work and outcomes visible.</li><li>Keep initiatives without a goal visible rather than hiding them.</li></ul></div>
+          <div class="view-visual"><div class="mini-panel" role="img" aria-label="Illustrative planning hierarchy from annual goal to initiative"><span class="mini-eyebrow">Planning hierarchy</span><h3>Make the first week easier</h3><div class="goal-list"><div class="goal">Grow activated accounts<small>Annual goal</small></div><div class="goal depth-1">Improve first-week activation<small>Quarterly OKR</small></div><div class="goal depth-2">Reduce setup friction<small>Team goal</small></div><div class="goal depth-3">Simplify account setup<small>Initiative</small></div></div></div><p class="disclosure">Illustrative example, not customer data.</p></div>
+        </div>
+        <div class="view-row">
+          <div class="view-copy"><p class="eyebrow">Summary</p><h3>What needs a decision today?</h3><p>Bring the most relevant initiatives to the top, with the reason for attention and the target date close at hand.</p><ul><li>See recorded blockers and date signals.</li><li>Open the initiative and continue the conversation on its card.</li></ul></div>
+          <div class="view-visual"><div class="mini-panel summary-mini" role="img" aria-label="Illustrative attention summary showing a blocked initiative and an approaching target"><span class="mini-eyebrow">Needs attention</span><div class="signal"><span class="signal-bar"></span><div><span class="signal-label">Waiting for a decision</span><strong>Simplify account setup</strong><p>Agree the sign-in approach before work continues.</p></div></div><div class="signal signal-amber"><span class="signal-bar"></span><div><span class="signal-label">Target approaching</span><strong>Improve first-week activation</strong><p>Review the next delivery milestone.</p></div></div></div><p class="disclosure">Illustrative example, not customer data.</p></div>
+        </div>
+        <div class="view-row">
+          <div class="view-copy"><p class="eyebrow">Forecast</p><h3>How does the date compare with experience?</h3><p>Once enough real initiatives have finished, TrueKanban compares current work with your own recorded completion times. It shows the evidence and its limitations, instead of inventing certainty when history is thin.</p><ul><li>Discuss scope, dependencies and capacity alongside the comparison.</li><li>See a clear “not enough history” state until a responsible comparison is possible.</li></ul></div>
+          <div class="view-visual"><div class="mini-panel" role="img" aria-label="Illustrative colour band for a historical delivery comparison"><span class="mini-eyebrow">Delivery comparison</span><h3>Onboarding improvement</h3><p class="small">Example only, based on invented sample durations.</p><div class="forecast-row"><div><strong>Illustrative forecast</strong><small>Compare a target with past completions</small></div><div class="forecast-band"><i></i><i></i><i></i><i></i><i></i></div></div><p class="disclosure">Real forecasts require sufficient completed work on the board. They are historical comparisons, not guarantees.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pilot" class="section pilot" aria-labelledby="pilot-heading">
+      <div class="container pilot-grid">
+        <div><p class="eyebrow">Early access</p><h2 id="pilot-heading">Try it with a real product, then tell us what is missing.</h2><p class="lead">We are inviting a small number of product people to test TrueKanban in their own context. The pilot is for learning together, not asking you to commit to a pricing plan that has not been set.</p></div>
+        <div class="pilot-card"><h3>What pilot access includes</h3><p>Explore a product board with optional delivery-team boards and share feedback as you use it.</p><ul class="pilot-list" style="color:var(--ink-soft)"><li>Planning, summary, board and forecast views</li><li>Invitations for colleagues who need board access</li><li>A direct conversation about what helps and what does not</li></ul><a class="button button-primary" href="#contact">Request pilot access</a></div>
+      </div>
+    </section>
+
+    <section id="faq" class="section" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">FAQ</p><h2 id="faq-heading">Questions worth asking.</h2></div>
+        <div class="faq-grid">
+          <details><summary>Do I need to move my delivery team into TrueKanban?</summary><p>No. A product board can stand on its own. You can add delivery-team boards under it when that is useful. Direct Jira synchronisation is not available yet.</p></details>
+          <details><summary>What makes an initiative need attention?</summary><p>The summary reflects information recorded on the initiative, such as a blocker, a passed or approaching target, or a missing target. These are signals for a conversation, not automated judgments about your team.</p></details>
+          <details><summary>Will I get a forecast on day one?</summary><p>Sample initiatives can demonstrate the forecast, but their numbers are illustrative. A live comparison needs enough completed initiatives with dates on your board. Until then, TrueKanban says that the history is insufficient.</p></details>
+          <details><summary>Is the pilot a paid subscription?</summary><p>We have not published a subscription price or final plan limits. Request access and we will explain the current pilot arrangement before you decide whether to participate.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact" aria-labelledby="contact-heading">
+      <div class="container contact-grid">
+        <div><p class="eyebrow">Start a conversation</p><h2 id="contact-heading">Would this help you see your product work more clearly?</h2><p class="lead">Tell us what you manage today and where visibility becomes difficult. We will reply personally about pilot access and next steps.</p><p class="small">A short note is enough. You do not need to prepare a workflow diagram or delivery data.</p></div>
+        <form class="contact-form" action="https://formspree.io/f/mvgrjorb" method="POST">
+          <input type="hidden" name="_subject" value="TrueKanban pilot request">
+          <div><label for="contact-name">Name</label><input id="contact-name" type="text" name="name" autocomplete="name" required placeholder="Your name"></div>
+          <div><label for="contact-email">Email</label><input id="contact-email" type="email" name="email" autocomplete="email" required placeholder="you@company.com"></div>
+          <div><label for="contact-message">What would you like to improve?</label><textarea id="contact-message" name="message" rows="5" required placeholder="A few words about your role, product and current challenge"></textarea></div>
+          <button class="button button-primary" type="submit">Request pilot access</button>
+          <p class="small" style="margin:0">Your message is sent through Formspree so we can reply. No marketing list.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><span>© <span id="year">2026</span> TrueKanban</span><div class="footer-links"><a href="#how">How it works</a><a href="#views">Product views</a><a href="#faq">FAQ</a><a href="https://truekanban.onrender.com/login">Sign in</a></div></div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
