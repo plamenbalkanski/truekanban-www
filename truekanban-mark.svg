@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">TrueKanban</title>
+  <rect width="64" height="64" rx="13" fill="#111d4a"/>
+  <path d="M13 16h36v9H35v27h-9V25H13z" fill="#fff"/>
+  <path d="m39 43 5 5 11-13" fill="none" stroke="#5de0b3" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+</svg>
