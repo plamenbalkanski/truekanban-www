@@ -154,6 +154,15 @@
     .forecast-band i:nth-child(4) { width: 20%; background: #8ac440; }
     .forecast-band i:nth-child(5) { width: 23%; background: #31a652; }
     .disclosure { margin: .8rem 0 0; color: var(--muted); font-size: .76rem; }
+    .plans { background: #eef4f3; }
+    .plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .plan-card { padding: 1.6rem; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+    .plan-card h3 { margin: .35rem 0 .5rem; }
+    .plan-price { display: block; margin-bottom: 1rem; color: var(--ink); font-size: 2rem; font-weight: 800; letter-spacing: -.04em; }
+    .plan-price small { color: var(--muted); font-size: .8rem; font-weight: 600; letter-spacing: 0; }
+    .plan-card ul { margin: 1rem 0 0; padding-left: 1.2rem; color: var(--ink-soft); }
+    .plan-card li { margin: .45rem 0; }
+    .plan-note { margin: 1.2rem 0 0; }
     .pilot { background: var(--ink); color: var(--white); }
     .pilot-grid { display: grid; grid-template-columns: 1fr .9fr; gap: 4rem; align-items: center; }
     .pilot .eyebrow { color: #9ad3d5; }
@@ -164,10 +173,6 @@
     .pilot-card h3 { margin-bottom: .55rem; }
     .pilot-card p { color: var(--muted); }
     .pilot-card .button { width: 100%; }
-    .price-preview { margin: 1.25rem 0 .7rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: 11px; background: #f5f9f8; }
-    .price-preview span { display: block; color: var(--teal-dark); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .price-preview strong { display: block; margin-top: .2rem; font-size: 1.8rem; line-height: 1.2; letter-spacing: -.04em; }
-    .price-preview small { color: var(--muted); font-size: .85rem; font-weight: 600; letter-spacing: 0; }
     .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
     details { border: 1px solid var(--line); border-radius: 11px; background: var(--white); }
     summary { cursor: pointer; padding: 1.1rem 1.25rem; font-weight: 750; }
@@ -199,7 +204,7 @@
       .brand img { width: 38px; height: 38px; }
       .nav { display: none; }
       .mobile-cta { display: inline-flex; min-height: 40px; padding: .5rem .7rem; font-size: .78rem; }
-      .steps, .faq-grid { grid-template-columns: 1fr; }
+      .steps, .faq-grid, .plan-grid { grid-template-columns: 1fr; }
       .journey-rail { grid-template-columns: repeat(2, 1fr); }
       .journey-rail span + span::before { display: none; }
       .view-row { grid-template-columns: 1fr; padding: 2rem 0; }
@@ -226,6 +231,7 @@
       <nav class="nav" aria-label="Main navigation">
         <a href="#how">How it works</a>
         <a href="#views">See the journey</a>
+        <a href="#plans">Plans</a>
         <a href="#faq">FAQ</a>
         <a href="https://truekanban.onrender.com/login">Sign in</a>
         <a class="button button-primary" href="#contact">Request pilot access</a>
@@ -269,6 +275,7 @@
         <div><p class="eyebrow">Where it fits</p><h2 id="intro-heading">A product decision view, not another issue tracker.</h2></div>
         <div class="intro-copy">
           <p>Candour is for product managers and owners who need to keep sight of initiatives after work moves into delivery, and for delivery leads who share those decisions. It connects the reason for the work to the status, blocker and target recorded on each initiative.</p>
+          <p>Imagine it is Monday and an onboarding initiative is due this month. The delivery team is waiting for a sign-in decision. Open the summary to see the blocker and target together, check the initiative's goal and updates, then agree a decision or a new date before telling stakeholders.</p>
           <p>It works on its own today. You can keep detailed tasks in your existing tools, while updating product initiatives in Candour. Optional delivery-team boards are available, but other tools do not automatically update them or the product board.</p>
           <div class="benefit-list">
             <div class="benefit"><strong>Know what needs attention</strong><span>See blocked work, approaching targets and missing commitments.</span></div>
@@ -313,10 +320,22 @@
       </div>
     </section>
 
+    <section id="plans" class="section plans" aria-labelledby="plans-heading">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Planned pricing</p><h2 id="plans-heading">Start on your own, share when the work needs a wider conversation.</h2><p>These are the plans we intend to offer after the invite-only pilot. They are not available for self-service purchase yet, and we will confirm the limits and terms before charging anyone.</p></div>
+        <div class="plan-grid">
+          <article class="plan-card"><p class="eyebrow">Free</p><h3>Explore one product</h3><span class="plan-price">£0</span><p>For an individual product manager or consultant finding out whether Candour helps with real work.</p><ul><li>One person and one product</li><li>Planning, board, summary and forecast views</li><li>No automatic charge</li></ul></article>
+          <article class="plan-card"><p class="eyebrow">Practitioner</p><h3>Share your product view</h3><span class="plan-price">£29 <small>/ month</small></span><p>For a consultant managing products and keeping colleagues informed while they manage the work.</p><ul><li>Up to three products</li><li>Invite up to five colleagues to view and comment</li><li>The practitioner manages the product</li></ul></article>
+          <article class="plan-card"><p class="eyebrow">Team</p><h3>Work across products</h3><span class="plan-price">£149 <small>/ month</small></span><p>For a product team that needs several people to manage shared work.</p><ul><li>Up to 20 people</li><li>Unlimited products</li><li>Shared product and delivery-board access</li></ul></article>
+        </div>
+        <p class="small plan-note">Today, access is by invitation. Read-and-comment permissions, these plan limits and self-service billing are planned, not live features. <a href="#contact">Ask about the pilot</a> if you would like to try Candour now.</p>
+      </div>
+    </section>
+
     <section id="pilot" class="section pilot" aria-labelledby="pilot-heading">
       <div class="container pilot-grid">
         <div><p class="eyebrow">Early access</p><h2 id="pilot-heading">Try it with a real product, then tell us what is missing.</h2><p class="lead">We are inviting a small number of product managers, owners and delivery leads to test Candour in their own context. This is an early pilot, not a claim that the product already fits every organisation.</p></div>
-        <div class="pilot-card"><h3>What pilot access includes</h3><p>Explore a product board with optional delivery-team boards and share feedback as you use it.</p><ul class="pilot-list" style="color:var(--ink-soft)"><li>Planning, summary, board and forecast views</li><li>Invitations for colleagues who need board access</li><li>A direct conversation about what helps and what does not</li></ul><div class="price-preview"><span>Planned team price</span><strong>£49 <small>/ month</small></strong></div><p class="small">The invited pilot is free, with a review after 90 days. Pilot participants who choose to continue on a paid plan will receive 50% off for their first 12 months. Plan scope and terms will be explained before any paid commitment; there is no automatic charge.</p><a class="button button-primary" href="#contact">Request pilot access</a></div>
+        <div class="pilot-card"><h3>What pilot access includes</h3><p>Explore a product board with optional delivery-team boards and share feedback as you use it.</p><ul class="pilot-list" style="color:var(--ink-soft)"><li>Planning, summary, board and forecast views</li><li>Invitations for colleagues who need board access</li><li>A direct conversation about what helps and what does not</li></ul><p class="small">The invited pilot is free, with a review after 90 days. Pilot participants who choose to continue on a paid plan will receive 50% off for their first 12 months. We will explain the final plan terms before any paid commitment; there is no automatic charge.</p><a class="button button-primary" href="#contact">Request pilot access</a></div>
       </div>
     </section>
 
@@ -331,7 +350,7 @@
           <details><summary>What makes an initiative need attention?</summary><p>The summary reflects information recorded on the initiative, such as a blocker, a passed or approaching target, or a missing target. These are signals for a conversation, not automated judgments about your team.</p></details>
           <details><summary>Will I get a forecast on day one?</summary><p>Sample initiatives can demonstrate the forecast, but their numbers are illustrative. A live comparison needs enough completed initiatives with dates on your board. Until then, Candour says that the history is insufficient.</p></details>
           <details><summary>How reliable is a historical comparison?</summary><p>Past delivery is a weaker guide when completion times vary widely. This variation is sometimes called cycle time variability. We are exploring how to make it visible in product-level signals. Candour does not currently rate the confidence of initiative forecasts.</p></details>
-          <details><summary>What does the pilot cost, and who else uses it?</summary><p>The invited pilot is free, with a review after 90 days and no automatic charge. Our planned team price is £49/month, with 50% off for pilot participants who choose a paid plan for their first 12 months. We will explain the plan terms before you decide. This is a small pilot, so we are not presenting customer logos or case studies as proof yet.</p></details>
+          <details><summary>What does the pilot cost, and who else uses it?</summary><p>The invited pilot is free, with a review after 90 days and no automatic charge. We are considering Free, £29/month Practitioner and £149/month Team plans, but the limits, view-and-comment role and billing are not live yet. Pilot participants who choose a paid plan will receive 50% off for their first 12 months, with final terms explained before they decide. This is a small pilot, so we are not presenting customer logos or case studies as proof yet.</p></details>
         </div>
       </div>
     </section>
@@ -351,7 +370,7 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-inner"><span>© <span id="year">2026</span> Candour</span><div class="footer-links"><a href="#how">How it works</a><a href="#views">See the journey</a><a href="#faq">FAQ</a><a href="https://truekanban.onrender.com/login">Sign in</a></div></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><span>© <span id="year">2026</span> Candour</span><div class="footer-links"><a href="#how">How it works</a><a href="#views">See the journey</a><a href="#plans">Plans</a><a href="#faq">FAQ</a><a href="https://truekanban.onrender.com/login">Sign in</a></div></div></footer>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
