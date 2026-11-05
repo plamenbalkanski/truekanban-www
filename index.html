@@ -131,7 +131,7 @@
     .goal.depth-2 { margin-left: 2.4rem; background: #f2f7f7; }
     .goal.depth-3 { margin-left: 3.6rem; border-color: #b8d6d6; background: var(--teal-pale); }
     .goal small { display: block; color: var(--muted); font-weight: 500; }
-    .board-mini { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .45rem; min-height: 210px; }
+    .board-mini { display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, .8fr)); gap: .45rem; min-height: 175px; }
     .board-column { min-width: 0; padding: .65rem; border: 1px solid #cddedd; border-radius: 8px; background: #eef4f3; }
     .board-column strong { display: block; margin-bottom: .65rem; font-size: .72rem; }
     .board-card { padding: .65rem; border: 1px solid var(--line); border-top: 3px solid var(--red); border-radius: 7px; background: var(--white); box-shadow: 0 3px 8px #1f2f3012; }
@@ -139,7 +139,7 @@
     .board-card-amber { border-top-color: #e9a329; }
     .board-card-amber span { color: var(--amber); }
     .board-card b { display: block; margin: .35rem 0; font-size: .72rem; line-height: 1.3; }
-    .board-card small { display: block; color: var(--muted); font-size: .61rem; }
+    .board-card small { display: block; color: var(--muted); font-size: .61rem; line-height: 1.4; }
     .board-column-empty { color: #829495; font-size: .65rem; }
     .summary-mini { display: grid; gap: .6rem; }
     .summary-mini .signal { margin: 0; }
@@ -223,7 +223,7 @@
       .view-row { grid-template-columns: 1fr; padding: 2rem 0; }
       .view-row:nth-of-type(even) .view-copy, .view-row:nth-of-type(even) .view-visual { order: initial; }
       .goal.depth-3 { margin-left: 2.8rem; }
-      .board-mini { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .board-mini { grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, .8fr)); }
       .footer-inner { flex-direction: column; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -319,8 +319,8 @@
           <div class="view-visual"><div class="mini-panel" role="img" aria-label="Illustrative planning hierarchy showing Simplify account setup linked to a team goal, quarterly OKR and annual goal"><span class="mini-eyebrow">Planning, customer experience</span><h3>Make the first week easier</h3><div class="goal-list"><div class="goal">Grow activated accounts<small>Annual goal</small></div><div class="goal depth-1">Improve first-week activation<small>Quarterly OKR</small></div><div class="goal depth-2">Reduce setup friction<small>Team goal</small></div><div class="goal depth-3">Simplify account setup<small>Initiative</small></div></div></div><p class="disclosure">Illustrative example, not customer data.</p></div>
         </div>
         <div class="view-row">
-          <div class="view-copy"><span class="step-number">02</span><p class="eyebrow">Product board</p><h3>Where is the work now?</h3><p>See the initiative in Now, Next, Later or Done. Its card shows how long it has been in progress beside the target date.</p></div>
-          <div class="view-visual"><div class="mini-panel" role="img" aria-label="Illustrative Now, Next, Later, Done board showing Simplify account setup in Now, 18 days in progress against a typical 30 days for comparable completed work"><span class="mini-eyebrow">Product board, customer experience</span><h3>Initiatives</h3><div class="board-mini"><div class="board-column"><strong>Now</strong><div class="board-card board-card-amber"><span>Age check</span><b>Simplify account setup</b><small>18 days in progress</small><small>Comparable work: typically 30 days</small><small>Target: 30 Nov</small></div></div><div class="board-column"><strong>Next</strong><span class="board-column-empty">Planned work</span></div><div class="board-column"><strong>Later</strong><span class="board-column-empty">Future options</span></div><div class="board-column"><strong>Done</strong><span class="board-column-empty">Completed work</span></div></div></div><p class="disclosure">Illustrative example, not customer data.</p></div>
+          <div class="view-copy"><span class="step-number">02</span><p class="eyebrow">Product board</p><h3>Where is the work now?</h3><p>See what is active, up next or further away. The initiative card brings its age and target date together.</p></div>
+          <div class="view-visual"><div class="mini-panel" role="img" aria-label="Illustrative product board showing Simplify account setup in Now, 18 days in progress against a typical 30 days for comparable completed work, with a 30 November target. The Done column is omitted from this cropped illustration."><span class="mini-eyebrow">Product board, customer experience</span><h3>Initiatives</h3><div class="board-mini"><div class="board-column"><strong>Now</strong><div class="board-card board-card-amber"><span>Age check</span><b>Simplify account setup</b><small>18 days in progress</small><small>Typical: 30 days</small><small>Target: 30 Nov</small></div></div><div class="board-column"><strong>Next</strong><span class="board-column-empty">Planned work</span></div><div class="board-column"><strong>Later</strong><span class="board-column-empty">Future options</span></div></div></div><p class="disclosure">Illustrative example, not customer data. Done is also available on the full board.</p></div>
         </div>
         <div class="view-row">
           <div class="view-copy"><span class="step-number">03</span><p class="eyebrow">Summary</p><h3>What needs attention?</h3><p>The same initiative appears as an early age check. Ask whether progress and dependencies still support the target, before it becomes a late delivery conversation.</p></div>
